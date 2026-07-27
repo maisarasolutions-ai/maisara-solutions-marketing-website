@@ -51,8 +51,7 @@
             <div class="max-w-xl mx-auto text-center">
                 <h3 class="font-display text-lg font-semibold text-maisara-ember mb-2">{{ __('Stay Updated') }}</h3>
                 <p class="text-sm text-white/60 mb-4">{{ __('Subscribe to our newsletter for the latest insights and updates.') }}</p>
-                <form action="{{ route('newsletter.subscribe', ['locale' => app()->getLocale()]) }}" method="POST" class="flex gap-2">
-                    @csrf
+                <form action="{{ route('insights.newsletter', ['locale' => app()->getLocale()]) }}" method="GET" class="flex gap-2">
                     <input type="email" name="email" required placeholder="{{ __('Your email address') }}" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-maisara-ember">
                     <button type="submit" class="btn-primary">{{ __('Subscribe') }}</button>
                 </form>
