@@ -16,7 +16,8 @@
         "ext-curl": "*",
         "ext-fileinfo": "*",
         "ext-hash": "*",
-        "laravel/sanctum": "^4.0"
+        "laravel/sanctum": "^4.0",
+        "predis/predis": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
