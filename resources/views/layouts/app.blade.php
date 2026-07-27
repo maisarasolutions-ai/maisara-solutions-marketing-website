@@ -29,7 +29,11 @@
     @include('components.shared.header')
 
     <main id="main-content">
-        @yield('content')
+        @if(isset($content) && $content)
+            {!! $content !!}
+        @else
+            @yield('content')
+        @endif
     </main>
 
     @include('components.shared.footer')
