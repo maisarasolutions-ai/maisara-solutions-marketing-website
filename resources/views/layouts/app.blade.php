@@ -26,7 +26,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="font-body bg-white text-maisara-navy antialiased">
+<body class="font-body text-maisara-navy antialiased overflow-x-hidden">
     @include('components.shared.header')
 
     <main id="main-content">

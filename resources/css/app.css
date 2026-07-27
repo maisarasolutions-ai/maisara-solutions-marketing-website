@@ -17,63 +17,80 @@
         font-family: 'Inter', sans-serif;
         font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
         color: #1E2F45;
+        overflow-x: hidden;
     }
 
     [lang="ar"] body {
         font-family: 'Noto Naskh Arabic', 'Cairo', sans-serif;
-        line-height: 1.8;
+        line-height: 1.9;
         text-align: start;
     }
 
     h1, h2, h3, h4 {
-        line-height: 1.2;
-        letter-spacing: -0.02em;
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+    }
+
+    ::selection {
+        background: rgba(217, 122, 74, 0.3);
+        color: #1E2F45;
     }
 }
 
 @layer components {
     .btn-primary {
         @apply bg-maisara-ember text-white px-8 py-3.5 rounded-xl font-semibold;
-        @apply hover:bg-maisara-ember-dark hover:shadow-lg hover:shadow-maisara-ember/20;
+        @apply hover:bg-maisara-ember-dark hover:shadow-xl hover:shadow-maisara-ember/25 hover:-translate-y-0.5;
         @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
         @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-200;
+        @apply transition-all duration-300 ease-out;
+        @apply relative overflow-hidden;
     }
 
     .btn-secondary {
         @apply bg-maisara-navy text-white px-8 py-3.5 rounded-xl font-semibold;
-        @apply hover:bg-maisara-navy-light hover:shadow-lg hover:shadow-maisara-navy/20;
+        @apply hover:bg-maisara-navy-light hover:shadow-xl hover:shadow-maisara-navy/25 hover:-translate-y-0.5;
         @apply focus:outline-none focus:ring-2 focus:ring-maisara-navy focus:ring-offset-2;
         @apply active:bg-maisara-navy-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-200;
+        @apply transition-all duration-300 ease-out;
     }
 
     .btn-outline {
         @apply border-2 border-maisara-ember text-maisara-ember px-8 py-3.5 rounded-xl font-semibold bg-transparent;
-        @apply hover:bg-maisara-ember hover:text-white hover:shadow-lg hover:shadow-maisara-ember/20;
+        @apply hover:bg-maisara-ember hover:text-white hover:shadow-xl hover:shadow-maisara-ember/25 hover:-translate-y-0.5;
         @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
         @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-200;
+        @apply transition-all duration-300 ease-out;
     }
 
     .section-title {
         @apply font-display text-4xl md:text-5xl font-bold text-maisara-navy mb-6;
+        @apply text-balance;
     }
 
     .section-subtitle {
-        @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
+        @apply text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed;
+        @apply text-balance;
     }
 
     .card {
-        @apply bg-white rounded-2xl p-8 transition-all duration-300;
-        @apply hover:shadow-xl hover:shadow-maisara-navy/5 hover:-translate-y-1;
-        @apply border border-gray-100;
+        @apply bg-white rounded-2xl p-8 transition-all duration-300 ease-out;
+        @apply hover:shadow-2xl hover:shadow-maisara-navy/8 hover:-translate-y-1.5;
+        @apply border border-gray-100/80;
+        @apply relative;
     }
 
     .card-ember {
-        @apply bg-maisara-ember/5 rounded-2xl p-8 transition-all duration-300;
-        @apply hover:shadow-xl hover:shadow-maisara-ember/10 hover:-translate-y-1;
-        @apply border border-maisara-ember/10;
+        @apply bg-white rounded-2xl p-8 transition-all duration-300 ease-out;
+        @apply hover:shadow-2xl hover:shadow-maisara-ember/12 hover:-translate-y-1.5;
+        @apply border border-maisara-ember/15;
+        @apply relative;
+    }
+
+    .card-navy {
+        @apply bg-maisara-navy/95 rounded-2xl p-8 transition-all duration-300 ease-out;
+        @apply hover:shadow-2xl hover:shadow-maisara-navy/25 hover:-translate-y-1;
+        @apply border border-white/10;
     }
 }
 
@@ -103,5 +120,42 @@
 
     .gradient-navy {
         background: linear-gradient(135deg, #1E2F45 0%, #152238 100%);
+    }
+
+    .glass-nav {
+        background: rgba(30, 47, 69, 0.85);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-glass-badge {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(30, 47, 69, 0.1) 50%, transparent);
     }
 }
