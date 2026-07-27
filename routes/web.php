@@ -24,6 +24,7 @@ use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\HealthController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -243,6 +244,8 @@ Route::group([
 Route::get('/', function () {
     return redirect(app()->getLocale() ?: 'en');
 });
+
+Route::get('/health', [HealthController::class, 'check'])->name('health');
 
 require base_path('routes/auth.php');
 require base_path('routes/console.php');
