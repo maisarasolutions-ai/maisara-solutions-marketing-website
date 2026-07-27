@@ -5,9 +5,19 @@
     "require": {
         "php": "^8.3",
         "laravel/framework": "^11.0",
+        "ext-pdo": "*",
         "ext-pdo_pgsql": "*",
         "ext-gd": "*",
-        "ext-opcache": "*"
+        "ext-opcache": "*",
+        "ext-mbstring": "*",
+        "ext-ctype": "*",
+        "ext-json": "*",
+        "ext-tokenizer": "*",
+        "ext-xml": "*",
+        "ext-curl": "*",
+        "ext-fileinfo": "*",
+        "ext-hash": "*",
+        "laravel/sanctum": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -33,7 +43,11 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

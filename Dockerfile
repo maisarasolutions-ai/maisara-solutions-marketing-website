@@ -6,6 +6,7 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     libwebp-dev \
     freetype-dev \
+    libxml2-dev \
     zip \
     unzip \
     git \
@@ -16,7 +17,7 @@ RUN apk add --no-cache \
     fcgi
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo pdo_pgsql gd opcache
+    && docker-php-ext-install pdo pdo_pgsql gd opcache mbstring xml dom
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
