@@ -20,7 +20,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div x-show="dropdown" x-transition class="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                    <div x-show="dropdown" x-transition x-cloak class="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
                         <a href="{{ route('about.index', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('About Us') }}</a>
                         <a href="{{ route('about.team', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('Team') }}</a>
                         <a href="{{ route('about.founder', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('Founder') }}</a>
@@ -34,7 +34,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div x-show="dropdown" x-transition class="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                    <div x-show="dropdown" x-transition x-cloak class="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
                         <a href="{{ route('services.advisory', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('Advisory') }}</a>
                         <a href="{{ route('services.design', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('Design') }}</a>
                         <a href="{{ route('services.delivery', ['locale' => app()->getLocale()]) }}" class="block px-4 py-2 text-sm text-maisara-navy hover:bg-maisara-ivory">{{ __('Delivery') }}</a>

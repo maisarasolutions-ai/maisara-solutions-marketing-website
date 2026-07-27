@@ -41,16 +41,34 @@ class Controller extends BaseController
             ];
         }
 
-        return view($view, array_merge($this->sharedViewData(), $contentData, $data));
+        $pageData = $this->loadPageData($module, $locale);
+
+        return view($view, array_merge($this->sharedViewData(), $contentData, $pageData, $data));
+    }
+
+    protected function loadPageData(?string $module, string $locale): array
+    {
+        if (!$module) {
+            return [];
+        }
+
+        $path = resource_path("data/{$locale}/{$module}/index.php");
+
+        if (!file_exists($path)) {
+            return [];
+        }
+
+        return ['pageData' => require $path];
     }
 
     protected function guessModuleFromView(string $view): ?string
     {
         $parts = explode('.', $view);
-        if (isset($parts[0])) {
-            return $parts[0];
+
+        if (count($parts) >= 2) {
+            return implode('/', array_slice($parts, 0, -1));
         }
 
-        return null;
+        return $parts[0] ?? null;
     }
 }

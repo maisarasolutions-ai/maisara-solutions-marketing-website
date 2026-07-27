@@ -7,11 +7,16 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
+
+    [x-cloak] { display: none !important; }
 
     body {
         font-family: 'Inter', sans-serif;
         font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        color: #1E2F45;
     }
 
     [lang="ar"] body {
@@ -19,28 +24,56 @@
         line-height: 1.8;
         text-align: start;
     }
+
+    h1, h2, h3, h4 {
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+    }
 }
 
 @layer components {
     .btn-primary {
-        @apply bg-maisara-ember text-white px-6 py-3 rounded-lg font-semibold;
-        @apply hover:bg-maisara-ember-dark focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
+        @apply bg-maisara-ember text-white px-8 py-3.5 rounded-xl font-semibold;
+        @apply hover:bg-maisara-ember-dark hover:shadow-lg hover:shadow-maisara-ember/20;
+        @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
         @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-colors duration-200;
+        @apply transition-all duration-200;
     }
 
     .btn-secondary {
-        @apply bg-maisara-navy text-white px-6 py-3 rounded-lg font-semibold;
-        @apply hover:bg-maisara-navy-light focus:outline-none focus:ring-2 focus:ring-maisara-navy focus:ring-offset-2;
+        @apply bg-maisara-navy text-white px-8 py-3.5 rounded-xl font-semibold;
+        @apply hover:bg-maisara-navy-light hover:shadow-lg hover:shadow-maisara-navy/20;
+        @apply focus:outline-none focus:ring-2 focus:ring-maisara-navy focus:ring-offset-2;
         @apply active:bg-maisara-navy-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-colors duration-200;
+        @apply transition-all duration-200;
     }
 
     .btn-outline {
-        @apply border-2 border-maisara-ember text-maisara-ember px-6 py-3 rounded-lg font-semibold bg-transparent;
-        @apply hover:bg-maisara-ember hover:text-white focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
+        @apply border-2 border-maisara-ember text-maisara-ember px-8 py-3.5 rounded-xl font-semibold bg-transparent;
+        @apply hover:bg-maisara-ember hover:text-white hover:shadow-lg hover:shadow-maisara-ember/20;
+        @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
         @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-colors duration-200;
+        @apply transition-all duration-200;
+    }
+
+    .section-title {
+        @apply font-display text-4xl md:text-5xl font-bold text-maisara-navy mb-6;
+    }
+
+    .section-subtitle {
+        @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
+    }
+
+    .card {
+        @apply bg-white rounded-2xl p-8 transition-all duration-300;
+        @apply hover:shadow-xl hover:shadow-maisara-navy/5 hover:-translate-y-1;
+        @apply border border-gray-100;
+    }
+
+    .card-ember {
+        @apply bg-maisara-ember/5 rounded-2xl p-8 transition-all duration-300;
+        @apply hover:shadow-xl hover:shadow-maisara-ember/10 hover:-translate-y-1;
+        @apply border border-maisara-ember/10;
     }
 }
 
@@ -59,4 +92,16 @@
     .font-display { font-family: 'Playfair Display', serif; }
     .font-body { font-family: 'Inter', sans-serif; }
     .font-arabic { font-family: 'Noto Naskh Arabic', 'Cairo', sans-serif; }
+
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .gradient-ember {
+        background: linear-gradient(135deg, #D97A4A 0%, #C06A3A 100%);
+    }
+
+    .gradient-navy {
+        background: linear-gradient(135deg, #1E2F45 0%, #152238 100%);
+    }
 }
