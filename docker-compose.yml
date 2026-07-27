@@ -106,11 +106,13 @@ services:
         condition: service_healthy
 
   watchtower:
-    image: containrrr/watchtower
+    image: containrrr/watchtower:latest
     container_name: maisara-watchtower
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_API_VERSION=1.40
     command: --interval 300 --label-enable --cleanup
     networks:
       - maisara-net
