@@ -1,6 +1,6 @@
 <header class="glass-nav text-white sticky top-0 z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-18 py-3">
+        <div class="flex justify-between items-center h-16 md:h-20">
             <!-- Logo -->
             <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="flex items-center space-x-2 group">
                 <div class="w-10 h-10 bg-maisara-ember rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">

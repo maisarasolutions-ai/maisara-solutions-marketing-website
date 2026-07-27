@@ -39,58 +39,146 @@
 
 @layer components {
     .btn-primary {
-        @apply bg-maisara-ember text-white px-8 py-3.5 rounded-xl font-semibold;
-        @apply hover:bg-maisara-ember-dark hover:shadow-xl hover:shadow-maisara-ember/25 hover:-translate-y-0.5;
-        @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
-        @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-300 ease-out;
-        @apply relative overflow-hidden;
+        background-color: #D97A4A;
+        color: white;
+        padding: 0.875rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease-out;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #C06A3A;
+        box-shadow: 0 20px 25px -5px rgba(217, 122, 74, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-primary:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(217, 122, 74, 0.4);
+    }
+
+    .btn-primary:active {
+        background-color: #C06A3A;
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     .btn-secondary {
-        @apply bg-maisara-navy text-white px-8 py-3.5 rounded-xl font-semibold;
-        @apply hover:bg-maisara-navy-light hover:shadow-xl hover:shadow-maisara-navy/25 hover:-translate-y-0.5;
-        @apply focus:outline-none focus:ring-2 focus:ring-maisara-navy focus:ring-offset-2;
-        @apply active:bg-maisara-navy-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-300 ease-out;
+        background-color: #1E2F45;
+        color: white;
+        padding: 0.875rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease-out;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+        background-color: #2A4060;
+        box-shadow: 0 20px 25px -5px rgba(30, 47, 69, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(30, 47, 69, 0.4);
+    }
+
+    .btn-secondary:active {
+        background-color: #152238;
+    }
+
+    .btn-secondary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     .btn-outline {
-        @apply border-2 border-maisara-ember text-maisara-ember px-8 py-3.5 rounded-xl font-semibold bg-transparent;
-        @apply hover:bg-maisara-ember hover:text-white hover:shadow-xl hover:shadow-maisara-ember/25 hover:-translate-y-0.5;
-        @apply focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
-        @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
-        @apply transition-all duration-300 ease-out;
+        border: 2px solid #D97A4A;
+        color: #D97A4A;
+        background: transparent;
+        padding: 0.875rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease-out;
+        cursor: pointer;
+    }
+
+    .btn-outline:hover {
+        background-color: #D97A4A;
+        color: white;
+        box-shadow: 0 20px 25px -5px rgba(217, 122, 74, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(217, 122, 74, 0.4);
+    }
+
+    .btn-outline:active {
+        background-color: #C06A3A;
+    }
+
+    .btn-outline:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     .section-title {
-        @apply font-display text-4xl md:text-5xl font-bold text-maisara-navy mb-6;
-        @apply text-balance;
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.25rem, 5vw, 3rem);
+        font-weight: 700;
+        color: #1E2F45;
+        margin-bottom: 1.5rem;
+        text-wrap: balance;
     }
 
     .section-subtitle {
-        @apply text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed;
-        @apply text-balance;
+        font-size: 1.125rem;
+        color: #6B7280;
+        max-width: 48rem;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.75;
+        text-wrap: balance;
     }
 
     .card {
-        @apply bg-white rounded-2xl p-8 transition-all duration-300 ease-out;
-        @apply hover:shadow-2xl hover:shadow-maisara-navy/8 hover:-translate-y-1.5;
-        @apply border border-gray-100/80;
-        @apply relative;
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        border: 1px solid #F3F4F6;
+        transition: all 0.3s ease-out;
+    }
+
+    .card:hover {
+        box-shadow: 0 20px 25px -5px rgba(30, 47, 69, 0.08);
+        transform: translateY(-6px);
+        border-color: rgba(30, 47, 69, 0.06);
     }
 
     .card-ember {
-        @apply bg-white rounded-2xl p-8 transition-all duration-300 ease-out;
-        @apply hover:shadow-2xl hover:shadow-maisara-ember/12 hover:-translate-y-1.5;
-        @apply border border-maisara-ember/15;
-        @apply relative;
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(217, 122, 74, 0.12);
+        transition: all 0.3s ease-out;
     }
 
-    .card-navy {
-        @apply bg-maisara-navy/95 rounded-2xl p-8 transition-all duration-300 ease-out;
-        @apply hover:shadow-2xl hover:shadow-maisara-navy/25 hover:-translate-y-1;
-        @apply border border-white/10;
+    .card-ember:hover {
+        box-shadow: 0 20px 25px -5px rgba(217, 122, 74, 0.12);
+        transform: translateY(-6px);
+        border-color: rgba(217, 122, 74, 0.25);
     }
 }
 
@@ -110,9 +198,7 @@
     .font-body { font-family: 'Inter', sans-serif; }
     .font-arabic { font-family: 'Noto Naskh Arabic', 'Cairo', sans-serif; }
 
-    .text-balance {
-        text-wrap: balance;
-    }
+    .text-balance { text-wrap: balance; }
 
     .gradient-ember {
         background: linear-gradient(135deg, #D97A4A 0%, #C06A3A 100%);
@@ -124,22 +210,22 @@
 
     .glass-nav {
         background: rgba(30, 47, 69, 0.85);
-        backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .glass-card {
         background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .hero-glass-badge {
         background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
