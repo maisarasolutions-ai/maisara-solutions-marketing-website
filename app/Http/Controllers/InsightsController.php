@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactSubmissionRequest;
+use App\Models\NewsletterSubscription;
+use Illuminate\Http\Request;
+
 class InsightsController extends Controller
 {
     public function index()
@@ -38,4 +42,17 @@ class InsightsController extends Controller
         return $this->view('insights.newsletter');
     }
 
+    public function subscribe(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'max:255'],
+        ]);
+
+        NewsletterSubscription::create([
+            'email' => $request->input('email'),
+            'token' => bin2hex(random_bytes(32)),
+        ]);
+
+        return back()->with('status', __('Thank you for subscribing.'));
+    }
 }

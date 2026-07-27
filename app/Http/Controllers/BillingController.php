@@ -10,12 +10,20 @@ class BillingController extends Controller
     }
     public function planoverview()
     {
-        return $this->view('client.billing.plan-overview');
+        return $this->view('client.billing.plan-overview', [
+            'plans' => [
+                ['name' => 'Starter', 'price' => '$499/mo'],
+                ['name' => 'Growth', 'price' => '$999/mo'],
+                ['name' => 'Enterprise', 'price' => 'Custom'],
+            ],
+        ]);
     }
 
     public function invoices()
     {
-        return $this->view('client.billing.invoices');
+        return $this->view('client.billing.invoices', [
+            'invoices' => [],
+        ]);
     }
 
     public function paymentmethods()

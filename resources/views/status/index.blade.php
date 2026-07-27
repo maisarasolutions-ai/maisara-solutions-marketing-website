@@ -1,52 +1,30 @@
 @extends('layouts.app')
 
-@section('title', __('Status Index'))
+@section('title', __('System Status'))
 
 @section('content')
-<!-- PLACEHOLDER: Hero section -->
 <section class="py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h1 class="font-display text-4xl md:text-5xl font-bold text-maisara-navy mb-6">{{ __('Status Index') }}</h1>
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-maisara-navy mb-6">{{ __('System Status') }}</h1>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                <!-- PLACEHOLDER: Status -->
-                {{ __('Status overview and introduction.') }}
+                {{ __('Real-time operational status for all Maisara Solutions services.') }}
             </p>
         </div>
-        @include('components.shared.segment-selector')
-    </div>
-</section>
 
-<!-- PLACEHOLDER: Key features / content sections -->
-<section class="py-20 bg-maisara-ivory">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- PLACEHOLDER: Feature cards from content/methodology/index.md -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Feature') }} 1</h3>
-                <p class="text-gray-600">{{ __('Description of key feature and capability.') }}</p>
-            </div>
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Feature') }} 2</h3>
-                <p class="text-gray-600">{{ __('Description of key feature and capability.') }}</p>
-            </div>
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Feature') }} 3</h3>
-                <p class="text-gray-600">{{ __('Description of key feature and capability.') }}</p>
-            </div>
+            @foreach($services as $service)
+                <div class="bg-white rounded-xl shadow-md p-6 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-display text-xl font-semibold text-maisara-navy">{{ $service['name'] }}</h3>
+                        <p class="text-gray-600 capitalize">{{ __('Status') }}: {{ $service['status'] }}</p>
+                    </div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        {{ __('Operational') }}
+                    </span>
+                </div>
+            @endforeach
         </div>
-    </div>
-</section>
-
-<!-- PLACEHOLDER: CTA section -->
-<section class="py-20 bg-maisara-navy text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="font-display text-3xl font-bold mb-6">{{ __('Ready to Learn More?') }}</h2>
-        <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-            <!-- PLACEHOLDER: CTA description -->
-            {{ __('Contact us to discuss how we can help with your needs.') }}
-        </p>
-        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn-primary">{{ __('Contact Us') }}</a>
     </div>
 </section>
 @endsection

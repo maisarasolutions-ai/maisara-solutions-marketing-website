@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactSubmissionRequest;
+use App\Models\Assessment;
+use Illuminate\Http\Request;
+
 class AssessmentController extends Controller
 {
     public function index()
@@ -33,4 +37,20 @@ class AssessmentController extends Controller
         return $this->view('assessment.segment-identifier');
     }
 
+    public function submit(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => ['required', 'string', 'max:255'],
+            'responses' => ['required', 'array'],
+            'score' => ['nullable', 'integer'],
+        ]);
+
+        $validated['session_id'] = $request->session()->getId();
+        $validated['recommendation'] = '';
+        $validated['completed_at'] = now();
+
+        Assessment::create($validated);
+
+        return back()->with('status', __('Assessment submitted successfully.'));
+    }
 }

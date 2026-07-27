@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactSubmissionRequest;
+use App\Models\ContactSubmission;
+use Illuminate\Http\Request;
+
 class ContactController extends Controller
 {
     public function index()
@@ -27,5 +31,16 @@ class ContactController extends Controller
     public function liveChat()
     {
         return $this->view('contact.live-chat');
+    }
+
+    public function submit(ContactSubmissionRequest $request)
+    {
+        $data = $request->validated();
+        $data['ip_address'] = $request->ip();
+        $data['user_agent'] = $request->userAgent();
+
+        ContactSubmission::create($data);
+
+        return back()->with('status', __('Thank you. Your inquiry has been received.'));
     }
 }

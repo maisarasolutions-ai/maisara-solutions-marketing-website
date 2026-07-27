@@ -104,6 +104,7 @@ Route::group([
     Route::get('/insights/success-stories', [InsightsController::class, 'successstories'])->name('insights.success-stories');
     Route::get('/insights/resources', [InsightsController::class, 'resources'])->name('insights.resources');
     Route::get('/insights/newsletter', [InsightsController::class, 'newsletter'])->name('insights.newsletter');
+    Route::post('/insights/newsletter', [InsightsController::class, 'subscribe'])->name('insights.newsletter.subscribe');
 
     // Partners
     Route::get('/partners', [PartnersController::class, 'index'])->name('partners.index');
@@ -180,6 +181,7 @@ Route::group([
     Route::get('/assessment/arabic-readiness', [AssessmentController::class, 'arabicreadiness'])->name('assessment.arabic-readiness');
     Route::get('/assessment/advisory-readiness', [AssessmentController::class, 'advisoryreadiness'])->name('assessment.advisory-readiness');
     Route::get('/assessment/segment-identifier', [AssessmentController::class, 'segmentidentifier'])->name('assessment.segment-identifier');
+    Route::post('/assessment/submit', [AssessmentController::class, 'submit'])->name('assessment.submit');
 
     // Knowledge Base
     Route::get('/knowledge-base', [KnowledgeBaseController::class, 'index'])->name('knowledge-base.index');
@@ -191,6 +193,7 @@ Route::group([
 
     // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
     Route::get('/contact/booking', [ContactController::class, 'booking'])->name('contact.booking');
     Route::get('/contact/regional-routing', [ContactController::class, 'regionalRouting'])->name('contact.regional-routing');
     Route::get('/contact/channels', [ContactController::class, 'channels'])->name('contact.channels');
