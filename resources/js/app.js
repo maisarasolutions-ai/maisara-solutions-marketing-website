@@ -18,17 +18,20 @@ window.toggleLanguage = (locale) => {
     window.location.href = newPath;
 };
 
-// Fade-in on scroll observer
+// Scroll-triggered animation observer for all reveal classes
 document.addEventListener('DOMContentLoaded', () => {
-    const fadeElements = document.querySelectorAll('.fade-in');
+    const revealClasses = ['.fade-in', '.fade-up', '.slide-in-left', '.slide-in-right', '.scale-in', '.reveal'];
 
-    if ('IntersectionObserver' in window) {
+    const allRevealElements = document.querySelectorAll(revealClasses.join(', '));
+
+    if ('IntersectionObserver' in window && allRevealElements.length > 0) {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
+                    const delay = entry.target.style.transitionDelay || '0ms';
                     setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 80);
+                        entry.target.classList.add('revealed');
+                    }, parseInt(delay) || 0);
                     observer.unobserve(entry.target);
                 }
             });
@@ -37,8 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
             rootMargin: '0px 0px -50px 0px',
         });
 
-        fadeElements.forEach((el) => observer.observe(el));
+        allRevealElements.forEach((el) => observer.observe(el));
     } else {
-        fadeElements.forEach((el) => el.classList.add('visible'));
+        allRevealElements.forEach((el) => el.classList.add('revealed'));
+    }
+
+    // Lucide icons initialization
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
     }
 });

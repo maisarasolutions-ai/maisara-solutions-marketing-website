@@ -4,50 +4,81 @@
 
 @section('content')
 <!-- Hero -->
-<section class="relative gradient-navy py-24 md:py-32 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="section-title text-white mb-6">{{ __('Events') }}</h1>
-        <p class="section-subtitle text-white/80 text-balance">
-            {{ __('Join us at upcoming events, workshops, and industry gatherings.') }}
-        </p>
-        <div class="mt-10">
-            @include('components.shared.segment-selector')
-        </div>
+<x-modern.modern-hero
+    :title="__('Events')"
+    :subtitle="__('Join us at upcoming summits, workshops, and industry gatherings across the region.')"
+    :badge="__('Events & Workshops')"
+    badgeIcon="calendar"
+>
+    <div class="flex flex-wrap gap-4 mt-10">
+        <a href="{{ route('events.webinars', ['locale' => app()->getLocale()]) }}" class="btn-glow">{{ __('Upcoming Events') }}</a>
     </div>
-</section>
+</x-modern.modern-hero>
 
-<!-- Events -->
-<section class="py-24 md:py-32 bg-maisara-ivory">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-maisara-navy mb-4">{{ __('Upcoming Events') }}</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center mb-12 text-balance">
-            {{ __('Meet our team and learn about the latest in technology and strategy.') }}
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Summits') }}</h3>
-                <p class="text-gray-600">{{ __('Regional leadership forums and keynote events.') }}</p>
+<!-- Events Grid -->
+<x-modern.modern-section :label="__('What We Offer')" background="ivory" :padding="'large'">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div class="card-modern fade-up">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="mic" class="w-6 h-6"></i>
             </div>
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Workshops') }}</h3>
-                <p class="text-gray-600">{{ __('Hands-on sessions for practitioners and decision-makers.') }}</p>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Summits') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Regional leadership forums and keynote events.') }}</p>
+        </div>
+        <div class="card-modern fade-up" style="transition-delay: 100ms;">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="hammer" class="w-6 h-6"></i>
             </div>
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Webinars') }}</h3>
-                <p class="text-gray-600">{{ __('Virtual learning experiences covering trending topics.') }}</p>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Workshops') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Hands-on sessions for practitioners and decision-makers.') }}</p>
+        </div>
+        <div class="card-modern fade-up" style="transition-delay: 200ms;">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="video" class="w-6 h-6"></i>
             </div>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Webinars') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Virtual learning experiences covering trending topics.') }}</p>
         </div>
     </div>
-</section>
+</x-modern.modern-section>
+
+<!-- Stats -->
+<x-modern.modern-section background="navy" :label="__('By the Numbers')">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+        <div class="text-center fade-up">
+            <div class="stat-number text-4xl md:text-5xl">30+</div>
+            <div class="text-white/70 text-sm">{{ __('Events Hosted') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 100ms;">
+            <div class="stat-number text-4xl md:text-5xl">5K+</div>
+            <div class="text-white/70 text-sm">{{ __('Attendees') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 200ms;">
+            <div class="stat-number text-4xl md:text-5xl">12</div>
+            <div class="text-white/70 text-sm">{{ __('Cities') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 300ms;">
+            <div class="stat-number text-4xl md:text-5xl">4.9</div>
+            <div class="text-white/70 text-sm">{{ __('Avg Rating') }}</div>
+        </div>
+    </div>
+</x-modern.modern-section>
 
 <!-- CTA -->
-<section class="gradient-navy py-24 md:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">{{ __('Ready to Learn More?') }}</h2>
-        <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto text-balance">
-            {{ __('Contact us to discuss how we can help with your needs.') }}
-        </p>
-        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn-primary">{{ __('Contact Us') }}</a>
-    </div>
-</section>
+<x-modern.modern-cta
+    :title="__('Join Us at the Next Event')"
+    :subtitle="__('Connect with our team and learn about the latest in technology and strategy.')"
+    buttonText="{{ __('View All Events') }}"
+    :buttonUrl="route('events.calendar', ['locale' => app()->getLocale()])"
+/>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+@endpush
 @endsection

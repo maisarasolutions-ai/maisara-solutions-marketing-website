@@ -2,19 +2,45 @@
 
 @section('title', __('Portfolio'))
 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        ['fade-in', 'fade-up'].forEach(function(className) {
+            var elements = document.querySelectorAll('.' + className);
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                elements.forEach(function(el) { observer.observe(el); });
+            } else {
+                elements.forEach(function(el) { el.classList.add('visible'); });
+            }
+        });
+    });
+</script>
+@endpush
+
 @section('content')
 <!-- Hero -->
-<section class="relative gradient-navy py-24 md:py-32 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="section-title text-white mb-6">{{ __('Portfolio') }}</h1>
-        <p class="section-subtitle text-white/80 text-balance">
-            {{ __('Case studies and evidence of our work across industries and markets.') }}
-        </p>
-        <div class="mt-10">
-            @include('components.shared.segment-selector')
-        </div>
+<x-modern.modern-hero
+    :title="__('Portfolio')"
+    :subtitle="__('Case studies and evidence of our work across industries and markets.')"
+    :badge="__('Portfolio & Track Record')"
+    badgeIcon="briefcase"
+>
+    <div class="mt-10">
+        @include('components.shared.segment-selector')
     </div>
-</section>
+</x-modern.modern-hero>
 
 <!-- Case Studies -->
 <section class="py-24 md:py-32 bg-maisara-ivory">

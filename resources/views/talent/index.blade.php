@@ -4,50 +4,108 @@
 
 @section('content')
 <!-- Hero -->
-<section class="relative gradient-navy py-24 md:py-32 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="section-title text-white mb-6">{{ __('Talent') }}</h1>
-        <p class="section-subtitle text-white/80 text-balance">
-            {{ __('Grow your career with a team that values curiosity, craft, and impact.') }}
-        </p>
-        <div class="mt-10">
-            @include('components.shared.segment-selector')
-        </div>
+<x-modern.modern-hero
+    :title="__('Talent')"
+    :subtitle="__('Grow your career with a team that values curiosity, craft, and impact.')"
+    :badge="__('Careers')"
+    badgeIcon="users"
+>
+    <div class="flex flex-wrap gap-4 mt-10">
+        <a href="{{ route('talent.open-positions', ['locale' => app()->getLocale()]) }}" class="btn-glow">{{ __('View Open Positions') }}</a>
+        <a href="{{ route('talent.apply', ['locale' => app()->getLocale()]) }}" class="btn-outline">{{ __('Apply Now') }}</a>
     </div>
-</section>
+</x-modern.modern-hero>
 
-<!-- Career Areas -->
-<section class="py-24 md:py-32 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-maisara-navy mb-4">{{ __('Open Positions') }}</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center mb-12 text-balance">
-            {{ __('Join a growing team shaping the future of enterprise technology in the region.') }}
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Engineering') }}</h3>
-                <p class="text-gray-600">{{ __('Software, infrastructure, and security engineering roles.') }}</p>
+<!-- Open Positions -->
+<x-modern.modern-section :label="__('Open Positions')" background="ivory" :padding="'large'">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div class="card-modern fade-up">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="code" class="w-6 h-6"></i>
             </div>
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Consulting') }}</h3>
-                <p class="text-gray-600">{{ __('Architects and advisors to guide client transformation.') }}</p>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Engineering') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Software, infrastructure, and security engineering roles.') }}</p>
+        </div>
+        <div class="card-modern fade-up" style="transition-delay: 100ms;">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="users" class="w-6 h-6"></i>
             </div>
-            <div class="card">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Operations') }}</h3>
-                <p class="text-gray-600">{{ __('Delivery, support, and customer success roles.') }}</p>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Consulting') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Architects and advisors to guide client transformation.') }}</p>
+        </div>
+        <div class="card-modern fade-up" style="transition-delay: 200ms;">
+            <div class="icon-card-icon mb-4">
+                <i data-lucide="headphones" class="w-6 h-6"></i>
             </div>
+            <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Operations') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ __('Delivery, support, and customer success roles.') }}</p>
         </div>
     </div>
-</section>
+</x-modern.modern-section>
+
+<!-- Stats -->
+<x-modern.modern-section background="navy" :label="__('By the Numbers')">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+        <div class="text-center fade-up">
+            <div class="stat-number text-4xl md:text-5xl">25+</div>
+            <div class="text-white/70 text-sm">{{ __('Team Members') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 100ms;">
+            <div class="stat-number text-4xl md:text-5xl">8</div>
+            <div class="text-white/70 text-sm">{{ __('Countries') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 200ms;">
+            <div class="stat-number text-4xl md:text-5xl">95%</div>
+            <div class="text-white/70 text-sm">{{ __('Retention Rate') }}</div>
+        </div>
+        <div class="text-center fade-up" style="transition-delay: 300ms;">
+            <div class="stat-number text-4xl md:text-5xl">4.8</div>
+            <div class="text-white/70 text-sm">{{ __('Glassdoor Rating') }}</div>
+        </div>
+    </div>
+</x-modern.modern-section>
+
+<!-- Benefits -->
+<x-modern.modern-section :label="__('Benefits')" background="subtle">
+    <div class="icon-grid mt-8">
+        <div class="icon-card fade-up">
+            <div class="icon-card-icon"><i data-lucide="heart" class="w-6 h-6"></i></div>
+            <h4 class="icon-card-title">{{ __('Health & Wellness') }}</h4>
+            <p class="icon-card-text">{{ __('Comprehensive health coverage') }}</p>
+        </div>
+        <div class="icon-card fade-up" style="transition-delay: 100ms;">
+            <div class="icon-card-icon"><i data-lucide="plane" class="w-6 h-6"></i></div>
+            <h4 class="icon-card-title">{{ __('Remote Work') }}</h4>
+            <p class="icon-card-text">{{ __('Flexible location options') }}</p>
+        </div>
+        <div class="icon-card fade-up" style="transition-delay: 200ms;">
+            <div class="icon-card-icon"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+            <h4 class="icon-card-title">{{ __('Learning Budget') }}</h4>
+            <p class="icon-card-text">{{ __('Annual growth allowance') }}</p>
+        </div>
+        <div class="icon-card fade-up" style="transition-delay: 300ms;">
+            <div class="icon-card-icon"><i data-lucide="trending-up" class="w-6 h-6"></i></div>
+            <h4 class="icon-card-title">{{ __('Career Path') }}</h4>
+            <p class="icon-card-text">{{ __('Clear growth trajectory') }}</p>
+        </div>
+    </div>
+</x-modern.modern-section>
 
 <!-- CTA -->
-<section class="gradient-navy py-24 md:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">{{ __('Ready to Learn More?') }}</h2>
-        <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto text-balance">
-            {{ __('Contact us to discuss how we can help with your needs.') }}
-        </p>
-        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn-primary">{{ __('Contact Us') }}</a>
-    </div>
-</section>
+<x-modern.modern-cta
+    :title="__('Join Our Team')"
+    :subtitle="__('Help us build the future of digital transformation in the Middle East.')"
+    buttonText="{{ __('View Open Positions') }}"
+    :buttonUrl="route('talent.open-positions', ['locale' => app()->getLocale()])"
+/>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+@endpush
 @endsection

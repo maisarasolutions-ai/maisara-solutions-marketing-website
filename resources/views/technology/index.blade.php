@@ -2,66 +2,136 @@
 
 @section('title', __('Technology'))
 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        ['fade-in', 'fade-up'].forEach(function(className) {
+            var elements = document.querySelectorAll('.' + className);
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                elements.forEach(function(el) { observer.observe(el); });
+            } else {
+                elements.forEach(function(el) { el.classList.add('visible'); });
+            }
+        });
+    });
+</script>
+@endpush
+
 @section('content')
 <!-- Hero -->
-<section class="relative gradient-navy py-24 md:py-32 overflow-hidden">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.04\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
-    <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-maisara-ember/10 to-transparent pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <span class="hero-glass-badge inline-block px-5 py-2 rounded-full text-maisara-ember text-sm font-bold mb-8 uppercase tracking-wider">
-            {{ __('Technology') }}
-        </span>
-        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ __('Technology') }}</h1>
-        <p class="section-subtitle text-white/80 text-balance mb-10">
-            {{ __('Our technology stack and capabilities.') }}
-        </p>
-        <div class="mt-10">
-            @include('components.shared.segment-selector')
-        </div>
+<x-modern.modern-hero
+    :title="__('Technology')"
+    :subtitle="__('Our technology stack and capabilities.')"
+    :badge="__('Technology & Platform')"
+    badgeIcon="cpu"
+>
+    <div class="mt-10">
+        @include('components.shared.segment-selector')
     </div>
-</section>
+</x-modern.modern-hero>
 
 <!-- Architecture Philosophy -->
-<section class="py-24 md:py-32 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 fade-in">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-maisara-ember/10 text-maisara-ember text-sm font-bold mb-6 uppercase tracking-wider">{{ __('Philosophy') }}</span>
-            <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-maisara-navy mb-4">{{ __('Architecture Philosophy') }}</h2>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto text-center mb-0 text-balance">
-                {{ __('Principles that guide every decision we make.') }}
+<x-modern.modern-section
+    :title="__('Architecture Philosophy')"
+    :subtitle="__('Principles that guide every decision we make.')"
+    background="default"
+    padding="large"
+>
+    <x-modern.modern-feature-cards :features="[
+        [
+            'icon' => 'shield',
+            'title' => __('Sovereignty'),
+            'description' => __('Built on open standards and vendor-neutral protocols to avoid lock-in.'),
+        ],
+        [
+            'icon' => 'lock',
+            'title' => __('Isolation'),
+            'description' => __('Every layer designed with sovereignty, encryption, and isolation in mind.'),
+        ],
+        [
+            'icon' => 'languages',
+            'title' => __('Bilingual'),
+            'description' => __('Native RTL support and Arabic NLP as core capabilities.'),
+        ],
+        [
+            'icon' => 'brain',
+            'title' => __('AI-Accelerated'),
+            'description' => __('Architectures that grow with your business, not against it.'),
+        ],
+    ]" :columns="4" />
+</x-modern.modern-section>
+
+<!-- Stats Section -->
+<section class="section-spacing bg-maisara-ivory relative overflow-hidden">
+    <div class="absolute top-10 end-10 w-64 h-64 bg-maisara-ember/5 rounded-full blur-3xl float-shape pointer-events-none"></div>
+    <div class="absolute bottom-10 start-10 w-48 h-48 bg-maisara-navy-light/5 rounded-full blur-3xl float-shape pointer-events-none" style="animation-delay: -2s;"></div>
+    <div class="absolute top-1/2 start-1/2 w-32 h-32 bg-maisara-ember/5 rounded-full blur-2xl float-shape pointer-events-none" style="animation-delay: -4s;"></div>
+    <div class="container-modern relative z-10">
+        <div class="text-center mb-12 fade-up">
+            <span class="section-label">{{ __('Platform Metrics') }}</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-maisara-navy mb-4">{{ __('Platform Metrics') }}</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                {{ __('Delivering excellence across the Middle East and beyond.') }}
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="card fade-in group hover:border-maisara-ember/30">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Open Foundations') }}</h3>
-                <p class="text-gray-500">{{ __('Built on open standards and vendor-neutral protocols to avoid lock-in.') }}</p>
-            </div>
-            <div class="card fade-in group hover:border-maisara-ember/30">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Security by Design') }}</h3>
-                <p class="text-gray-500">{{ __('Every layer designed with sovereignty, encryption, and isolation in mind.') }}</p>
-            </div>
-            <div class="card fade-in group hover:border-maisara-ember/30">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Arabic-First') }}</h3>
-                <p class="text-gray-500">{{ __('Native RTL support and Arabic NLP as core capabilities.') }}</p>
-            </div>
-            <div class="card fade-in group hover:border-maisara-ember/30">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-3">{{ __('Scalable by Default') }}</h3>
-                <p class="text-gray-500">{{ __('Architectures that grow with your business, not against it.') }}</p>
-            </div>
-        </div>
+        <x-modern.modern-stats :stats="[
+            ['number' => '15+', 'label' => __('Years of Regional Expertise'), 'description' => __('Trusted across the Middle East')],
+            ['number' => '200+', 'label' => __('Projects Delivered'), 'description' => __('Across diverse industries')],
+            ['number' => '98%', 'label' => __('Client Satisfaction'), 'description' => __('Driving measurable impact')],
+            ['number' => '50+', 'label' => __('Team Members'), 'description' => __('Diverse expertise')],
+        ]" />
     </div>
 </section>
 
+<!-- Comparison Section -->
+<x-modern.modern-section
+    :title="__('Deployment Models')"
+    :subtitle="__('From advisory sprints to full managed operations, we adapt to your operational maturity.')"
+    label="{{ __('Flexibility') }}"
+    background="default"
+    padding="large"
+>
+    <x-modern.modern-comparison
+        :title="__('Standalone vs Managed Deployment')"
+        :left="[
+            'label' => __('Standalone'),
+            'items' => [
+                __('Full client ownership of solution'),
+                __('Internal team manages operations'),
+                __('Best for mature digital organizations'),
+                __('Maximum control and customization'),
+            ],
+        ]"
+        :right="[
+            'label' => __('Managed'),
+            'items' => [
+                __('Maisara manages end-to-end operations'),
+                __('SLA-backed availability and support'),
+                __('Ideal for rapid capability scaling'),
+                __('Reduced operational overhead'),
+            ],
+        ]"
+        highlight="right"
+    />
+</x-modern.modern-section>
+
 <!-- CTA -->
-<section class="gradient-navy py-24 md:py-32 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-maisara-navy via-maisara-navy to-maisara-navy-light opacity-80"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-maisara-ember/5 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">{{ __('Ready to Learn More?') }}</h2>
-        <p class="text-xl text-white/75 mb-8 max-w-3xl mx-auto text-balance">
-            {{ __('Contact us to discuss how we can help with your needs.') }}
-        </p>
-        <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn-primary text-base md:text-lg px-10 py-4">{{ __('Get In Touch') }}</a>
-    </div>
-</section>
+<x-modern.modern-cta
+    :title="__('Ready to Learn More?')"
+    :subtitle="__('Contact us to discuss how we can help with your needs.')"
+    buttonText="{{ __('Get In Touch') }}"
+    :buttonUrl="route('contact.index', ['locale' => app()->getLocale()])"
+/>
 @endsection

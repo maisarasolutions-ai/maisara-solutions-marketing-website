@@ -2,52 +2,85 @@
 
 @section('title', __('Deployment'))
 
+@php
+    $sections = $contentSections ?? [];
+    $content = null;
+@endphp
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        ['fade-in', 'fade-up'].forEach(function(className) {
+            var elements = document.querySelectorAll('.' + className);
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                elements.forEach(function(el) { observer.observe(el); });
+            } else {
+                elements.forEach(function(el) { el.classList.add('visible'); });
+            }
+        });
+    });
+</script>
+@endpush
+
 @section('content')
 <!-- Hero -->
-<section class="relative gradient-navy py-24 md:py-32 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="section-title text-white mb-6">{{ __('Deployment') }}</h1>
-        <p class="section-subtitle text-white/80 text-balance">
-            {{ __('Flexible deployment models tailored to your needs.') }}
-        </p>
-        <div class="mt-10">
-            @include('components.shared.segment-selector')
+<x-modern.modern-hero
+    :title="__('Deployment Models')"
+    :subtitle="__('Flexible deployment models tailored to your needs, combining operational responsibility with quality assurance.')"
+    :badge="__('Deployment Models')"
+    badgeIcon="layers"
+>
+    <div class="flex flex-wrap gap-4 mt-10 fade-up">
+        <a href="{{ route('deployment.comparison', ['locale' => app()->getLocale()]) }}" class="btn-glow">{{ __('Compare Models') }}</a>
+        <a href="{{ route('contact.booking', ['locale' => app()->getLocale()]) }}" class="btn-outline">{{ __('Book a Session') }}</a>
+    </div>
+</x-modern.modern-hero>
+
+<!-- Segment Selector -->
+<section class="py-16 md:py-24 bg-white relative">
+    <div class="container-modern relative z-10">
+        <div class="text-center mb-12 fade-up">
+            <span class="section-label">{{ __('Choose Your Path') }}</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-maisara-navy mb-4">{{ __('Select Your Segment') }}</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                {{ __('Every deployment model is adapted to your operational maturity. Select your segment to discover the ideal path.') }}
+            </p>
         </div>
+        @include('components.shared.segment-selector')
     </div>
 </section>
 
-<!-- Deployment Models -->
-<section class="py-24 md:py-32 bg-maisara-ivory">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-maisara-navy mb-4">{{ __('Deployment Models') }}</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center mb-12 text-balance">
-            {{ __('From advisory sprints to full managed operations, we adapt to your operational maturity.') }}
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card text-center">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Advisory') }}</h3>
-                <p class="text-gray-600">{{ __('Expert guidance for self-managed teams.') }}</p>
-            </div>
-            <div class="card text-center">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Co-managed') }}</h3>
-                <p class="text-gray-600">{{ __('Shared responsibility for operational excellence.') }}</p>
-            </div>
-            <div class="card text-center">
-                <h3 class="font-display text-xl font-semibold text-maisara-navy mb-2">{{ __('Managed') }}</h3>
-                <p class="text-gray-600">{{ __('Fully managed operations with SLA-backed reliability.') }}</p>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Markdown Content -->
+@php
+    $renderSections = $sections;
+    if (!empty($renderSections) && str_starts_with(trim(strip_tags($renderSections[0])), '<h1')) {
+        array_shift($renderSections);
+    }
+@endphp
+
+@if(count($renderSections) > 0)
+    <x-modern.modern-content-renderer :sections="$renderSections" />
+@endif
 
 <!-- CTA -->
-<section class="gradient-navy py-24 md:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">{{ __('Ready to Learn More?') }}</h2>
-        <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto text-balance">
-            {{ __('Contact us to discuss how we can help with your needs.') }}
-        </p>
-        <a href="{{ route('deployment.comparison', ['locale' => app()->getLocale()]) }}" class="btn-primary">{{ __('Compare Models') }}</a>
-    </div>
-</section>
+<x-modern.modern-cta
+    :title="__('Ready to Learn More?')"
+    :subtitle="__('Contact us to discuss how we can help with your deployment strategy.')"
+    buttonText="{{ __('Compare Models') }}"
+    :buttonUrl="route('deployment.comparison', ['locale' => app()->getLocale()])"
+>
+    <a href="{{ route('contact.index', ['locale' => app()->getLocale()]) }}" class="btn-outline">{{ __('Contact Us') }}</a>
+</x-modern.modern-cta>
 @endsection
