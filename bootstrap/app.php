@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Register middleware here
+        $middleware->alias([
+            'locale' => App\Http\Middleware\DetectLocale::class,
+            'segment' => App\Http\Middleware\DetectSegment::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Configure exception handling here
