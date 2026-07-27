@@ -40,6 +40,9 @@ services:
     container_name: maisara-nginx
     restart: unless-stopped
     read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
     volumes:
       - app_public:/var/www/html/public:ro
     networks:
