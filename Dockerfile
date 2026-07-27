@@ -16,15 +16,20 @@ RUN apk add --no-cache \
     fcgi
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo_pgsql gd opcache
+    && docker-php-ext-install pdo_pgsql gd opcache \
+    && docker-php-ext-enable opcache
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_SECURITY_ADVISORIES_BLOCK=false
 
 WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN git config --global --add safe.directory /var/www/html \
+    && composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN npm install && npm run build
 
