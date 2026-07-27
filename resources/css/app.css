@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Cairo:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    }
+
+    [lang="ar"] body {
+        font-family: 'Noto Naskh Arabic', 'Cairo', sans-serif;
+        line-height: 1.8;
+        text-align: start;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-maisara-ember text-white px-6 py-3 rounded-lg font-semibold;
+        @apply hover:bg-maisara-ember-dark focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
+        @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply transition-colors duration-200;
+    }
+
+    .btn-secondary {
+        @apply bg-maisara-navy text-white px-6 py-3 rounded-lg font-semibold;
+        @apply hover:bg-maisara-navy-light focus:outline-none focus:ring-2 focus:ring-maisara-navy focus:ring-offset-2;
+        @apply active:bg-maisara-navy-dark disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply transition-colors duration-200;
+    }
+
+    .btn-outline {
+        @apply border-2 border-maisara-ember text-maisara-ember px-6 py-3 rounded-lg font-semibold bg-transparent;
+        @apply hover:bg-maisara-ember hover:text-white focus:outline-none focus:ring-2 focus:ring-maisara-ember focus:ring-offset-2;
+        @apply active:bg-maisara-ember-dark disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply transition-colors duration-200;
+    }
+}
+
+@layer utilities {
+    .ms-auto { margin-inline-start: auto; }
+    .me-auto { margin-inline-end: auto; }
+    .ps-4 { padding-inline-start: 1rem; }
+    .pe-4 { padding-inline-end: 1rem; }
+    .ms-4 { margin-inline-start: 1rem; }
+    .me-4 { margin-inline-end: 1rem; }
+    .ms-6 { margin-inline-start: 1.5rem; }
+    .me-6 { margin-inline-end: 1.5rem; }
+    .ps-8 { padding-inline-start: 2rem; }
+    .pe-8 { padding-inline-end: 2rem; }
+
+    .font-display { font-family: 'Playfair Display', serif; }
+    .font-body { font-family: 'Inter', sans-serif; }
+    .font-arabic { font-family: 'Noto Naskh Arabic', 'Cairo', sans-serif; }
+}

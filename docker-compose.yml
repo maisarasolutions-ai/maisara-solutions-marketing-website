@@ -1,0 +1,122 @@
+version: '3.8'
+
+name: maisarasolutions
+
+services:
+  app:
+    image: ghcr.io/maisarasolutions-ai/maisara-app:latest
+    container_name: maisara-app
+    restart: unless-stopped
+    env_file:
+      - ./maisara.env
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=maisara
+      - DB_USERNAME=maisara_user
+      - REDIS_HOST=redis
+    volumes:
+      - app_public:/var/www/html/public
+    networks:
+      - maisara-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    healthcheck:
+      test: ["CMD", "cgi-fcgi", "-bind", "-connect", "127.0.0.1:9000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  nginx:
+    image: ghcr.io/maisarasolutions-ai/maisara-nginx:latest
+    container_name: maisara-nginx
+    restart: unless-stopped
+    read_only: true
+    volumes:
+      - app_public:/var/www/html/public:ro
+    networks:
+      - maisara-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      app:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: maisara-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: maisara
+      POSTGRES_USER: maisara_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - maisara_pgdata:/var/lib/postgresql/data
+    networks:
+      - maisara-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maisara_user -d maisara"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: maisara-redis
+    restart: unless-stopped
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - maisara_redisdata:/data
+    networks:
+      - maisara-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: maisara-tunnel
+    restart: unless-stopped
+    read_only: true
+    command: tunnel --no-autoupdate run --token-file /etc/cloudflared/token
+    volumes:
+      - /etc/cloudflared/maisarasolutions/token:/etc/cloudflared/token:ro
+    networks:
+      - maisara-net
+    depends_on:
+      nginx:
+        condition: service_healthy
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: maisara-watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300 --label-enable --cleanup
+    networks:
+      - maisara-net
+
+volumes:
+  maisara_pgdata:
+  maisara_redisdata:
+  app_public:
+
+networks:
+  maisara-net:
+    driver: bridge
