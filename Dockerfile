@@ -29,7 +29,7 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN git config --global --add safe.directory /var/www/html \
-    && COMPOSER_SECURITY_ADVISORIES_BLOCK=false composer install --no-dev --optimize-autoloader --no-interaction
+    && composer install --no-dev --optimize-autoloader --no-interaction --no-audit
 
 RUN npm install && npm run build
 
