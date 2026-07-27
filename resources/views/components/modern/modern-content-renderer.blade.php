@@ -192,11 +192,14 @@ $dir = app()->getLocale() === 'ar' ? 'rtl' : 'ltr';
             $bg = $bgCycle[$bgIndex % count($bgCycle)];
             $bgIndex++;
 
-            switch ($type) {
-                case 'hero':
-                    echo '<x-modern.modern-hero :title="$heading" :subtitle="$contentWithoutHeading" />';
-                    break;
+            $features = [];
+            $items = [];
+            $stats = [];
+            $timelineItems = [];
+            $steps = [];
+            $comparison = ['left' => ['label' => '', 'items' => []], 'right' => ['label' => '', 'items' => []]];
 
+            switch ($type) {
                 case 'feature-cards':
                     $features = extractH3Items($sectionHtml);
                     if (empty($features)) {
@@ -206,9 +209,6 @@ $dir = app()->getLocale() === 'ar' ? 'rtl' : 'ltr';
                             'description' => '',
                         ])->toArray();
                     }
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <x-modern.modern-feature-cards :features="$features" :columns="3" />
-                    </x-modern.modern-section>';
                     break;
 
                 case 'icon-grid':
@@ -217,53 +217,80 @@ $dir = app()->getLocale() === 'ar' ? 'rtl' : 'ltr';
                         'title' => $item,
                         'description' => '',
                     ])->toArray();
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <x-modern.modern-icon-grid :items="$items" />
-                    </x-modern.modern-section>';
                     break;
 
                 case 'stats':
                     $stats = extractStats($sectionHtml);
-                    echo '<x-modern.modern-section title="'.$heading.'" background="navy">
-                        <x-modern.modern-stats :stats="$stats" />
-                    </x-modern.modern-section>';
                     break;
 
                 case 'timeline':
-                    $items = extractTimelineItems($sectionHtml);
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <x-modern.modern-timeline :items="$items" />
-                    </x-modern.modern-section>';
+                    $timelineItems = extractTimelineItems($sectionHtml);
                     break;
 
                 case 'process':
                     $steps = extractProcessSteps($sectionHtml);
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <x-modern.modern-process :steps="$steps" />
-                    </x-modern.modern-section>';
                     break;
 
                 case 'comparison':
                     $comparison = extractComparisonData($sectionHtml);
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <x-modern.modern-comparison
-                            title="'.$heading.'"
-                            :left="$comparison[\'left\']"
-                            :right="$comparison[\'right\']"
-                            highlight="right"
-                        />
-                    </x-modern.modern-section>';
-                    break;
-
-                default:
-                    echo '<x-modern.modern-section title="'.$heading.'" background="'.$bg.'">
-                        <div class="modern-content-section prose max-w-none">
-                            '.$contentWithoutHeading.'
-                        </div>
-                    </x-modern.modern-section>';
                     break;
             }
-        @endforeach
+        @endphp
+
+        @switch($type)
+            @case('hero')
+                <x-modern.modern-hero :title="$heading" :subtitle="$contentWithoutHeading" />
+                @break
+
+            @case('feature-cards')
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <x-modern.modern-feature-cards :features="$features" :columns="3" />
+                </x-modern.modern-section>
+                @break
+
+            @case('icon-grid')
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <x-modern.modern-icon-grid :items="$items" />
+                </x-modern.modern-section>
+                @break
+
+            @case('stats')
+                <x-modern.modern-section title="{{ $heading }}" background="navy">
+                    <x-modern.modern-stats :stats="$stats" />
+                </x-modern.modern-section>
+                @break
+
+            @case('timeline')
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <x-modern.modern-timeline :items="$timelineItems" />
+                </x-modern.modern-section>
+                @break
+
+            @case('process')
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <x-modern.modern-process :steps="$steps" />
+                </x-modern.modern-section>
+                @break
+
+            @case('comparison')
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <x-modern.modern-comparison
+                        title="{{ $heading }}"
+                        :left="$comparison['left']"
+                        :right="$comparison['right']"
+                        highlight="right"
+                    />
+                </x-modern.modern-section>
+                @break
+
+            @default
+                <x-modern.modern-section title="{{ $heading }}" background="{{ $bg }}">
+                    <div class="modern-content-section prose max-w-none">
+                        {!! $contentWithoutHeading !!}
+                    </div>
+                </x-modern.modern-section>
+        @endswitch
+    @endforeach
 </div>
 
 <script>
