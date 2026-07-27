@@ -31,7 +31,9 @@
 
     <main id="main-content">
         @if(isset($content) && $content)
-            {!! $content !!}
+            <div class="modern-content-section">
+                {!! $content !!}
+            </div>
         @else
             @yield('content')
         @endif
