@@ -29,7 +29,7 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN git config --global --add safe.directory /var/www/html \
-    && mkdir -p /var/www/html/storage/framework/{views,cache,sessions} /var/www/html/bootstrap/cache \
+    && mkdir -p /var/www/html/storage/framework/views /var/www/html/storage/framework/cache /var/www/html/storage/framework/sessions /var/www/html/bootstrap/cache /var/www/html/storage/logs \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && composer install --no-dev --optimize-autoloader --no-interaction --no-security-blocking
 
