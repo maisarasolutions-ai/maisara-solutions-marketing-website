@@ -1,15 +1,5 @@
 // resources/js/app.js
 
-import { createApp } from 'alpinejs';
-
-window.Alpine = createApp({
-    init() {
-        this.$store = {};
-    }
-});
-
-Alpine.start();
-
 // Global utilities
 window.toggleMobileMenu = () => {
     const menu = document.getElementById('mobile-menu');
