@@ -78,7 +78,7 @@
 <!-- CTA -->
 <x-modern.modern-cta
     :title="__('Ready to Build Together?')"
-    :subtitle="__ __('Let us discuss your technology ecosystem and infrastructure requirements.')"
+    :subtitle="__('Let us discuss your technology ecosystem and infrastructure requirements.')"
     buttonText="{{ __('Contact Us') }}"
     :buttonUrl="route('contact.index', ['locale' => app()->getLocale()])"
 />
