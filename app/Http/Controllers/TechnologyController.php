@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 class TechnologyController extends Controller
 {
-    public function index()
-    {
-        return $this->view('technology.index');
-    }
+public function index()
+{
+    return view('technology.index', array_merge($this->sharedViewData(), [
+        'content' => null,
+        'contentSections' => [],
+    ]));
+}
     public function architecturephilosophy()
     {
         return $this->view('technology.architecture-philosophy');
